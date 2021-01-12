@@ -1,34 +1,7 @@
-let notes = []
+const notes = getSavedNotes()
 
 const filters = {
-    searchText : ' '
-}
-
-//check for existing stored data
-const notesJSON = localStorage.getItem('notes')
- 
-if(notesJSON !== null){
-    notes = JSON.parse(notesJSON)
-}
-const renderNotes = function(notes, filters){
-    const filterNotes = notes.filter(function (note){
-        return note.title.toLowerCase().includes(filters.searchText.toLowerCase())
-    })
-
-    document.querySelector('#notes').innerHTML = ' '
-    
-    filterNotes.forEach(function(note){
-        const noteEle = document.createElement('p')
-
-        if(note.title.length >0){
-            noteEle.textContent = note.title
-        }else{
-            noteEle.textContent = 'unnmaed note'
-        }
-
-        
-        document.querySelector('#notes').appendChild(noteEle)
-    })
+    searchText : ''
 }
 renderNotes(notes, filters)
 
@@ -39,8 +12,8 @@ document.querySelector('#create_note').addEventListener('click', function(e){
         title : '', 
         body : ''
     })
-    localStorage.setItem('notes', JSON.stringify(notes))
-    renderNotes(notes,filters)
+     savedNote(notes)
+     renderNotes(notes,filters)
 })
 
 
@@ -49,6 +22,6 @@ document.querySelector('#search_text').addEventListener('input',function(e){
     renderNotes(notes, filters)
 })
 
-// document.querySelector('#for_fun').addEventListener('change', function(e){
-//     console.log(e.target.checked)
-// })
+ document.querySelector('#for_fun').addEventListener('change', function(e){
+    console.log(e.target.checked)
+ })
