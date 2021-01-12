@@ -23,6 +23,7 @@ const renderTodos = function (todos, filters) {
         return searchTextMatch && hideCompletedMatch
     })
 
+
     const incompleteTodos = filteredTodos.filter(function (todo) {
         return !todo.completed
     })
@@ -37,9 +38,17 @@ const renderTodos = function (todos, filters) {
 
 // Get the DOM elements for an individual note
 const generateTodoDOM = function (todo) {
-    const p = document.createElement('p')
-    p.textContent = todo.text
-    return p
+    const todoEle = document.createElement('div')
+    const checkbox = document.createElement('input')
+    const todoText = document.createElement('span')
+    const removeButton = document.createElement('button')
+    checkbox.setAttribute('type','checkbox')
+    todoEle.appendChild(checkbox)
+    todoText.textContent = todo.text
+    todoEle.appendChild(todoText)
+    removeButton.textContent = 'x'
+    todoEle.appendChild(removeButton)
+    return todoEle
 }
 
 // Get the DOM elements for list summary

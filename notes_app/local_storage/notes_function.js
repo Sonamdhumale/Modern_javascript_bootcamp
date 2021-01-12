@@ -1,41 +1,50 @@
-//read existing nodes from localscope
-const getSavedNotes = function(){
-    
-    const notesJSON = localStorage.getItem('notes') 
-    if(notesJSON !== null){
+// Read existing notes from localStorage
+const getSavedNotes = function () {
+    const notesJSON = localStorage.getItem('notes')
+
+    if (notesJSON !== null) {
         return JSON.parse(notesJSON)
-    }else{
+    } else {
         return []
     }
 }
 
-// save data to local storage
-const savedNote = function(notes){
+// Save the notes to localStorage
+const saveNotes = function (notes) {
     localStorage.setItem('notes', JSON.stringify(notes))
 }
 
-//generate DOM structure fo a note
- const generateNoteDOM = function(note){
+// Generate the DOM structure for a note
+const generateNoteDOM = function (note) {
+    const noteEl = document.createElement('div')
+    const textEl = document.createElement('span')
+    const button = document.createElement('button')
 
-const noteEle = document.createElement('p')
-        if(note.title.length >0 ){
-            noteEle.textContent = note.title
-        }else{
-            noteEle.textContent = 'unnamed note'
-        }
-        return noteEle
-}  
+    // Setup the remove note button
+    button.textContent = 'x'
+    noteEl.appendChild(button)
 
-//render notes
-const renderNotes = function(notes, filters){
-    const filterNotes = notes.filter(function (note){
+    // Setup the note title text
+    if (note.title.length > 0) {
+        textEl.textContent = note.title
+    } else {
+        textEl.textContent = 'Unnamed note'
+    }
+    noteEl.appendChild(textEl)
+
+    return noteEl
+}
+
+// Render application notes
+const renderNotes = function (notes, filters) {
+    const filteredNotes = notes.filter(function (note) {
         return note.title.toLowerCase().includes(filters.searchText.toLowerCase())
     })
 
-    document.querySelector('#notes1').innerHTML = ' '
-    
-    filterNotes.forEach(function(note){
-        const noteEle = generateNoteDOM(note)
-        document.querySelector('#notes1').appendChild(noteEle)
+    document.querySelector('#notes').innerHTML = ''
+
+    filteredNotes.forEach(function (note) {
+        const noteEl = generateNoteDOM(note)
+        document.querySelector('#notes').appendChild(noteEl)
     })
 }
