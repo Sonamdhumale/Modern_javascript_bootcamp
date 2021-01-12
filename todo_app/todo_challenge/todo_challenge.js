@@ -6,7 +6,7 @@ const todo = [{
     completed : false
 }, {
     text : 'buy food ',
-    completed : truea
+    completed : true
 }, {
     text : ' do work',
     completed : false
@@ -56,9 +56,6 @@ renderedTodos(todo, filters)
 
 //todo creation
 
-
-
-
 document.querySelector('#search_text').addEventListener('change', function(e){
     filters.searchText = e.target.value
     renderedTodos(todo, filters)
@@ -75,6 +72,6 @@ document.querySelector('#new_todo').addEventListener('submit', function(e){
 })
 
 document.querySelector('#hide_completed').addEventListener('change', function(e){
-    filters.hide_completed=!e.target.checked
+    filters.hide_completed=e.target.checked
     renderedTodos(todo, filters)
 })
