@@ -1,7 +1,9 @@
 let notes = getSavedNotes()
 
 const filters = {
-    searchText: ''
+    searchText: '',
+    sortBy: 'byEdited'
+
 }
 
 renderNotes(notes, filters)
@@ -13,8 +15,8 @@ document.querySelector('#create_note').addEventListener('click', function (e) {
         id: id,
         title: '',
         body: '',
-        createdAt : timeStamp,
-        updatedAt : timeStamp
+        createdAt: timeStamp,
+        updatedAt: timeStamp
     })
     saveNotes(notes)
     location.assign(`/edit.html#${id}`)
@@ -26,12 +28,13 @@ document.querySelector('#search_text').addEventListener('input', function (e) {
 })
 
 document.querySelector('#filter_by').addEventListener('change', function (e) {
-    console.log(e.target.value)
+    filters.sortBy = e.target.value
+    renderNotes(notes, filters)
 })
 
-window.addEventListener('storage', function(e){
-    if(e.key === 'notes'){
-       notes = JSON.parse(e.newValue)
+window.addEventListener('storage', function (e) {
+    if (e.key === 'notes') {
+        notes = JSON.parse(e.newValue)
         renderNotes(notes, filters)
     }
 })
