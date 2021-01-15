@@ -7,7 +7,7 @@ const Hangman = function (word, attempts) {
 
 //logic of remaining attempts
 Hangman.prototype.calculateStatus = function () {
-    const finished = this.word.every((letter) => this.guessedLetters.includes(letter))
+    const finished = this.word.every((letter) => this.guessedLetters.includes(letter) || letter === ' ')
 
     if (this.attempts === 0) {
         this.status = 'failed'
@@ -21,11 +21,11 @@ Hangman.prototype.calculateStatus = function () {
 //printing msg
 Hangman.prototype.getStatusMessage = function () {
     if (this.status === 'continue') {
-        console.log(`Reamaining Attempts : ${this.attempts}`) 
+       return `Reamaining Attempts : ${this.attempts}` 
     } else if (this.status === 'failed') {
-        console.log( `You cross all the attempts ! Your word is "${this.word.join('')}" `)
+        return `You cross all the attempts ! Your word is "${this.word.join('')}" `
     } else {
-        console.log('You Won the game :) ')
+       return 'You Won the game :) '
     }
 }
 
@@ -64,17 +64,3 @@ Hangman.prototype.makeAttempts = function (guess) {
 
     this.calculateStatus()
 }
-
-const gameElement = document.querySelector('#game')
-const noOfTryElement = document.querySelector('#no_of_try')
-const game1 = new Hangman('Cat', 2)
-
-gameElement.textContent = game1.getPuzzle()
-noOfTryElement.textContent = game1.getStatusMessage()
-
-window.addEventListener('keypress', function (e) {
-    const guess = String.fromCharCode(e.charCode)
-    game1.makeAttempts(guess)
-    gameElement.textContent = game1.getPuzzle()
-    noOfTryElement.textContent = game1.getStatusMessage()
-})

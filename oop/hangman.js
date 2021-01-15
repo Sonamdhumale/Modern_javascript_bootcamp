@@ -1,23 +1,13 @@
-const Hangman = function(word , remaining){
-    this.word = word.toLowerCase().split(' ')
-    this.remaining = remaining
-    this.guessedLetters = ['c']
-}
-Hangman.prototype.getPuzzle = function(){
-    let puzzle = ' '
+// const product = {
+//     name : 'abc'
+// }
+// Object.prototype.hasOwnProperty = () => 'this is new function'
+// console.log(product.hasOwnProperty('hasOwnProperty'))
+// console.log(product)
 
-    this.word.forEach((letter)=>{
-        if(this.guessedLetters.includes(letter)){
-            puzzle = puzzle + letter
-        }else{
-            puzzle = puzzle + '*'
-        }
-    })
-    return puzzle
-}
+//primitives
+const product = 'computer'
+console.log(product.split(''))
 
-const game1 = new Hangman('cat' ,2)
-console.log(game1)
-
-const game2 = new Hangman('new jersey' , 4)
-console.log(game2)
+const newProduct = new String('phone')
+console.log(newProduct)
